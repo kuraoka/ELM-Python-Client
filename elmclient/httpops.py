@@ -934,7 +934,7 @@ class HttpRequest():
             if auth_url_response.status_code != 200 and not ap_redirect_url:
                 return auth_url_response  # no more auth required
             if ap_redirect_url and auth_url_response.status_code==401:
-                if not authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
+                if not auth_url_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
                     return auth_url_response  # no more auth required
                     
             if ap_redirect_url and 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
@@ -946,7 +946,7 @@ class HttpRequest():
                     pass
                 elif re.search( r"<\s*input\s+.*name\s*=\s*['\"]?SAMLRequest['\"]?", auth_url_response.text, re.DOTALL ):
                     pass
-                elif authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"): 
+                elif auth_url_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
                     pass
                     # Kerberos not supported!
                     raise Exception( "Kerberos/SPNEGO Authentication for application password not supported" )
