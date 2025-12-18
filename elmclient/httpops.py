@@ -965,7 +965,7 @@ class HttpRequest():
                 
             else:
                 if auth_url_response.headers.get('X-JSA-LOGIN-REQUIRED', "") != 'true':
-                    raise Exception( "login required is not true it is '%s'" % (auth_url_response.headers['X-JSA-LOGIN-REQUIRED']))
+                     raise Exception( "login required is not true it is '%s'" % (auth_url_response.headers.get('X-JSA-LOGIN-REQUIRED', "No X-JSA-LOGIN-REQUIRED")))
                 # step 3 GET from auth_url (with nothing added)
                 auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
                 self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
