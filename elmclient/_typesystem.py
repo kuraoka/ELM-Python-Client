@@ -6,6 +6,7 @@
 
 import logging
 import keyword
+import re
 
 from . import rdfxml
 from . import utils
@@ -17,11 +18,9 @@ logger = logging.getLogger(__name__)
 
 def makeSafeAttributeName( name, propuri ):
 #    print( f"Make safe name fror {name } so it can be used as a Python object attribute" )
-    res = ""
-    for c in name:
-        if not c.isalpha():
-            c = "_"
-        res += c
+    res = re.sub(r'\W', '_', name)
+    if len(res) > 0 and res[0].isdecimal():
+        res = "z"+res
     if keyword.iskeyword( res ) or keyword.issoftkeyword( res ):
 #        print( f"unsafe {name}" )
         res = makeSafeAttributeName( rdfxml.uri_to_prefixed_tag( propuri ), propuri )
