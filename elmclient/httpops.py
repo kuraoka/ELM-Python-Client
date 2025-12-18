@@ -519,8 +519,8 @@ class HttpRequest():
     # execute the request, retrying with increasing delays (login isn't handled at this level but at lower level)
     def _execute_request( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
         for wait_dur in [2, 5, 10, 0]:
+            result=None
             try:
-                result=None
                 if not self._session.alwayscache and not cacheable:
                     # add a header so the response isn't cached
                     self._req.headers['Cache-Control'] = "no-store, max-age=0"
@@ -758,6 +758,7 @@ class HttpRequest():
                     request.headers[h]=None
 
         # actually (try to) do the request
+        response = None
         try:
             prepped = self._session.prepare_request( request )
 
