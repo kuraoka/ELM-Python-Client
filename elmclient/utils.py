@@ -122,7 +122,7 @@ def log_commandline( prog,args=None ):
     args = args or []
     def optquote(s):
         if " " in s:
-            return '"s"'
+            return f'"{s}"'
         return s
     arg = " ".join([optquote(a) for a in args])
     logger.trace( f"COMMANDLINE: {prog} {arg}" )

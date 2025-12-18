@@ -416,7 +416,7 @@ class _OSLCOperations_Mixin:
 
     # returns just the core artifacts (which have rm_nav:parent) from the query results
     # assumes query results include rm_nav:parent
-    def find_core_artifact(self,queryresults):
+    def find_core_artifacts(self,queryresults):
         results = {}
         for k,v in queryresults.items():
             if 'rm_nav:parent' in v:
